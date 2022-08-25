@@ -1,0 +1,37 @@
+﻿@page
+@model binay.Pages.Client.CreateClientModel
+@{
+}
+
+<h1> ADD NEW CLient</h1>
+@if (Model.emessage.Length > 0)
+{
+    <div class="alert" role="alert">
+        <b>@Model.emessage</b>
+        <button type="button" class="btn-close"></button>
+    </div>
+}
+<form method="post">
+    <div class="row mb-4">
+        <label class="col-sm-4">Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Client_name" value="@Model.clientinfor.client_name" required>
+        </div>
+    </div>
+    @if (Model.sucmessage.Length > 0)
+    {
+        <div class="alert" role="alert">
+            <b>@Model.sucmessage</b>
+            <button type="button" class="btn-close"></button>
+        </div>
+    }
+    <div class="row mb-4">
+        <button type="submit" class="btn-block btn-primary">Submit</button>
+        <div class="row mb-4">
+            <a class="btn btn-outline-primary" href="/Index" role="button">Cancel</a>
+        </div>
+
+    </div>
+
+
+</form>

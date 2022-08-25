@@ -1,0 +1,48 @@
+﻿@page
+@model binay.Pages.Client.IndexModel
+@{
+}
+
+<h2>client lists</h2>
+<a class="btn btn-primary btn-sm" href="/Client/CreateClient">Add new client</a>
+
+@if (Model.listclients.Count == 0)
+{
+    <p align="center"> No Client(s) found </p>
+}
+@if(Model.listclients.Count > 0)
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>Client ID</th>
+            <th>Client name</th>
+            <th>No of contacts</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+
+        @foreach (var item in Model.listclients)
+        {
+            <tr>
+                <td>@item.client_id</td>
+                <td>@item.client_name</td>
+                <td>@item.no_of_contacts</td>
+                <td>
+                    <a class="btn-primary btn-sm" href="/client/Update?id=@item.client_id">Update </a>
+                
+                    <a class="btn-primary btn-sm" href="/client/delete?id=@item.client_id">Delete </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>}
+    
+    
+
+

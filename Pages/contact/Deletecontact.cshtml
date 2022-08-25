@@ -1,0 +1,84 @@
+﻿@page
+@using System.Data.SqlClient;
+@{
+    String emessage = "";
+    try
+    {
+        int count = 0;
+        List<String> clientID = new List<String>();
+        string id = Request.Query["id"];
+        string connectionsting = "Data Source=localhost;Initial Catalog=binarycitpact;Integrated Security=True";
+        using (SqlConnection connect = new SqlConnection(connectionsting))
+        {
+            connect.Open();
+
+            string cmd = "SELECT client_id FROM Client_Contact WHERE contact_id=@contact_id ";
+            using (SqlCommand comm = new SqlCommand(cmd, connect))
+            {
+                comm.Parameters.AddWithValue("@contact_id", id);
+                using (SqlDataReader reader = comm.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        clientID.Add(reader.GetString(0));
+                    }
+                }
+            }
+
+            foreach (var id_id in clientID)
+            {
+                string cm = "SELECT no_of_contacts FROM client WHERE client_id=@id";
+                using (SqlCommand comm = new SqlCommand(cm, connect))
+                {
+                    comm.Parameters.AddWithValue("@id", id_id);
+                    using (SqlDataReader reader = comm.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            count = reader.GetInt32(0);
+                        }
+
+                    }
+                }
+                string cmd4 = "UPDATE client SET no_of_contacts =@no WHERE client_id= @id;";
+                using (SqlCommand comm2 = new SqlCommand(cmd4, connect))
+                {
+                    count -= 1;
+                    comm2.Parameters.AddWithValue("@no", count);
+                    comm2.Parameters.AddWithValue("@id", id_id);
+                    comm2.ExecuteNonQuery();
+
+                }
+            }
+
+            string sql = "DELETE FROM contacts WHERE id=@id";
+            using (SqlCommand command = new SqlCommand(sql, connect))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+
+            string cmd2 = "DELETE FROM Client_Contact  WHERE contact_id IS NULL ;";
+            using (SqlCommand comm = new SqlCommand(cmd2, connect))
+            {
+
+                comm.ExecuteNonQuery();
+            }
+
+
+
+
+        }
+    }
+
+
+
+    catch (Exception e)
+    {
+        emessage = e.Message;
+        System.Diagnostics.Debug.WriteLine("Exception:  " + e.ToString());
+    }
+
+    Response.Redirect("/contact/Contact");
+}
+}

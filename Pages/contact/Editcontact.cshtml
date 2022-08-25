@@ -1,0 +1,64 @@
+﻿@page
+@model binay.Pages.contact.EditcontactModel
+@{
+}
+<h1> Edit Contact information</h1>
+
+@if (Model.emessage.Length > 0)
+{
+    <div class="alert fade show" role="alert">
+        <b>@Model.emessage</b>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<form method="POST">
+    <input type="hidden" name="id" value="@Model.Contactinfor.id">
+    <div class="row mb-4">
+        <label class="col-sm-4">First Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="first_name" value="@Model.Contactinfor.FirstName" >
+        </div>
+        <label class="col-sm-4">SureName</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Surename" value="@Model.Contactinfor.SurName" >
+        </div>
+        <label class="col-sm-4">Email</label>
+        <div class="col-sm-10">
+            email should have this format "john@@gmail.com" 
+            <input type="email" class="form-control" name="email" value="@Model.Contactinfor.Email" pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,4}$">
+        </div>
+
+        <label class="col-sm-4" >Remove Affiliate</label>
+        <select class="form-select" name="remove affiliation">
+            <option value="">Select:</option>
+            @foreach (var item in Model.removelistclient)
+            {
+                <option value="@item">@item</option>
+            }
+        </select>
+        <label class="col-sm-4">Add Affiliate</label>
+        <select class="form-select" name="add affiliation">
+            <option value="">Select:</option>
+            @foreach (var item in Model.listclient)
+            {
+                <option value="@item">@item</option>
+            }
+        </select>
+    </div>
+    @if (Model.sucmessage.Length > 0)
+    {
+        <div class="alert fade show" role="alert">
+            <b>@Model.sucmessage</b>
+            <button type="button"  class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="row mb-4">
+        <button type="submit" class="btn-block btn-primary">Submit</button>
+        <div class="row mb-4">
+            <a class="btn btn-outline-primary" href="/contact/Contact" role="button">Cancel</a>
+        </div>
+
+    </div>
+
+
+</form>

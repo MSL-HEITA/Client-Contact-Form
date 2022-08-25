@@ -1,0 +1,47 @@
+﻿@page
+@model binay.Pages.contact.ContactModel
+@{
+}
+
+<h2>Contact list</h2>
+<a class="btn btn-primary btn-sm" href="/contact/Addcontact">Add new contact</a>
+
+@if (Model.listcontact.Count == 0)
+{
+<p align="center"> No contact(s) found </p>
+}
+@if (Model.listcontact.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                
+                <th>Email</th>
+                <th>No_of_Clients</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+
+            @foreach (var item in Model.listcontact)
+            {
+                <tr>
+                    <td>@item.SurName , @item.FirstName</td>
+                    <td>@item.Email</td>
+                    <td>@item.No_of_Clients</td>
+                    <td>
+                        <a class="btn-primary btn-sm" href="/contact/Editcontact?id=@item.id">Update</a>
+                        <a class="btn-primary btn-sm" href="/contact/Deletecontact?id=@item.id">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>}
+
+
+
